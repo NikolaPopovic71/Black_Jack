@@ -3,6 +3,7 @@ import random
 # Initialize deck
 suits = ["Hearts", "Diamonds", "Clubs", "Spades"]
 ranks = ["Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"]
+rank_values = {"Two": 2, "Three": 3, "Four": 4, "Five": 5, "Six": 6, "Seven": 7, "Eight": 8, "Nine": 9, "Ten": 10, "Jack": 10, "Queen": 10, "King": 10, "Ace": 11}
 deck = [{'Suit': suit, 'Rank': rank} for suit in suits for rank in ranks]
 
 # Shuffle deck
@@ -14,13 +15,11 @@ def calculate_score(hand):
     ace_count = 0
     for card in hand:
         rank = card['Rank']
-        if rank in ['Jack', 'Queen', 'King']:
-            score += 10
-        elif rank == 'Ace':
+        if rank == 'Ace':
             score += 11
             ace_count += 1
         else:
-            score += int(rank)
+            score += rank_values[rank]
     while score > 21 and ace_count:
         score -= 10
         ace_count -= 1
